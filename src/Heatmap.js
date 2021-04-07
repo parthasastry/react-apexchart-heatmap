@@ -1,27 +1,13 @@
 import React, { Component } from 'react';
 import Chart from "react-apexcharts";
-import data from './data';
-
-function generateData(count, yrange) {
-    var i = 0;
-    var series = [];
-    while (i < count) {
-      var x = (i + 1).toString();
-      var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-  
-      series.push({
-        x: x,
-        y: y
-      });
-      i++;
-    }
-    console.log(series)
-    return series;
-  }
 
 export class Heatmap extends Component {
+  constructor(props) {
+    super(props)
+    // console.log("In heatmap: ", this.props.data)
+  }
     state = {
-      series: data,
+      series: this.props.data,
         options: {
             chart: {
                 height: 350,
