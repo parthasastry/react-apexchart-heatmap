@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Spinner, Button } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Header from "./Header";
 import Heatmap from "./Heatmap";
+import MySpinner from './MySpinner'
+import ResReq from './ResReq'
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -15,22 +18,21 @@ const App = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const spinner = <Button variant="primary" disabled>
-  <Spinner
-    as="span"
-    animation="grow"
-    size="sm"
-    role="status"
-    aria-hidden="true"
-  />
-  Loading...
-</Button>
-
   return (
-    <div>
-      <h1 className="text-center">Heatmap - Resource Allocation</h1>
-      {data.length > 0 ? <Heatmap data={data} /> : spinner}
-    </div>
+    <Router>
+      <Header />
+      <Switch>
+        <Route path="/" exact>
+          <h1 className="text-center">Resource Allocation</h1>
+          {data.length > 0 ? <Heatmap data={data} /> : <MySpinner />}
+        </Route>
+        
+        <Route path="/rr" exact>
+          <h1 className="text-center">Opportunities</h1>
+          <ResReq />
+        </Route>
+      </Switch>
+    </Router>
   );
 };
 
